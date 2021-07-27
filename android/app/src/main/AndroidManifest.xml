@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.covid_19">
    <application
-        android:label="covid_19"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Covid 19"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
