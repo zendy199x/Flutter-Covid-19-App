@@ -1,11 +1,14 @@
 import 'package:covid_19/constant.dart';
+import 'package:covid_19/models/data_model.dart';
+import 'package:covid_19/resources/repository.dart';
 import 'package:covid_19/widgets/counter.dart';
 import 'package:covid_19/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  repository.fetchData().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,8 +33,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String dropdownValue = repository.data.first.country;
+  DataModel currentCountry = repository.data.first;
 
   @override
   Widget build(BuildContext context) {
@@ -70,15 +81,23 @@ class HomeScreen extends StatelessWidget {
                       isExpanded: true,
                       underline: const SizedBox(),
                       icon: SvgPicture.asset("assets/icons/dropdown.svg"),
-                      value: "Vietnam",
-                      items: ["Vietnam", "Japan", "United State", "China"]
+                      value: dropdownValue,
+                      items: repository.data
+                          .map((e) => e.country)
+                          .toList()
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
                         );
                       }).toList(),
-                      onChanged: (value) {},
+                      onChanged: (String? value) {
+                        dropdownValue = value!;
+                        currentCountry = repository.data.where(
+                              (_) => _.country == value,
+                        ).first;
+                        setState(() {});
+                      },
                     ),
                   ),
                 ],
@@ -94,14 +113,14 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           children: [
                             TextSpan(
                               text: "Case Update\n",
                               style: kTitleTextstyle,
                             ),
                             TextSpan(
-                              text: "Newest update July 27",
+                              text: "Newest update ${repository.lastUpdate}",
                               style: TextStyle(
                                 color: kTextLightColor,
                               ),
@@ -121,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white,
@@ -133,25 +152,32 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Counter(
-                          color: kInfectedColor,
-                          number: 6318,
-                          title: "Intected",
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          children: [
+                            Counter(
+                              color: kInfectedColor,
+                              number: currentCountry.newCases,
+                              title: "Intected",
+                            ),
+                            const SizedBox(width: 20),
+                            Counter(
+                              color: kDeathColor,
+                              number: currentCountry.newDeaths,
+                              title: "Deaths",
+                            ),
+                            const SizedBox(width: 20),
+                            Counter(
+                              color: kRecovercolor,
+                              number: currentCountry.newRecovered,
+                              title: "Recovered",
+                            ),
+                          ],
                         ),
-                        Counter(
-                          color: kDeathColor,
-                          number: 5,
-                          title: "Deaths",
-                        ),
-                        Counter(
-                          color: kRecovercolor,
-                          number: 1098,
-                          title: "Recovered",
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
