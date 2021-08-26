@@ -11,8 +11,8 @@
 - Zalo: [Zendy](https://zalo.me/nguyenduc94/)
 
 **Note:** For API:
-- Go to https://docs.rapidapi.com/docs/keys see RapidAPI creation instructions.
-  replace YOUR_RAPID_API_KEY in repository.dart with your RapidAPI key.
+- Go to [here](https://docs.rapidapi.com/docs/keys) see RapidAPI key creation instructions.
+- Replace YOUR_RAPID_API_KEY in repository.dart with your RapidAPI key.
 ### Screenshots
 
 <p align="center">
