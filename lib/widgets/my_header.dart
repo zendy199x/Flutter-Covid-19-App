@@ -44,23 +44,20 @@ class MyHeader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Visibility(
-              visible: ModalRoute.of(context)!.isFirst,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const InfoScreen();
-                        },
-                      ),
-                    );
-                  },
-                  child: SvgPicture.asset("assets/icons/menu.svg"),
-                ),
+            Align(
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const InfoScreen();
+                      },
+                    ),
+                  );
+                },
+                child: SvgPicture.asset("assets/icons/menu.svg"),
               ),
             ),
             const SizedBox(height: 20),

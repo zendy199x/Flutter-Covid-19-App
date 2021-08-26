@@ -40,9 +40,6 @@ dev_dependencies:
     sdk: flutter
   flutter_svg: ^0.22.0
   flutter_launcher_icons: ^0.9.1
-  http: ^0.13.3
-  intl: ^0.17.0
-  flutter_native_splash: ^1.2.1
 
 flutter_icons:
   android: "launcher_icon"

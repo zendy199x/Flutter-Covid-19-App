@@ -192,6 +192,7 @@ class SymptomCard extends StatelessWidget {
         children: [
           Image.asset(
             image,
+            height: 90,
           ),
           Text(title,
               style: const TextStyle(
