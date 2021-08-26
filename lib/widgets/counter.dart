@@ -2,13 +2,13 @@ import 'package:covid_19/constant.dart';
 import 'package:flutter/material.dart';
 
 class Counter extends StatelessWidget {
-  final int number;
+  final String number;
   final Color color;
   final String title;
 
   const Counter({
     Key? key,
-    this.number = 0,
+    this.number = '0',
     this.color = kInfectedColor,
     this.title = "",
   }) : super(key: key);
@@ -38,7 +38,7 @@ class Counter extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          "$number",
+          number.isNotEmpty ? number.substring(1).replaceAll(',', '') : '0',
           style: TextStyle(
             fontSize: 40,
             color: color,
