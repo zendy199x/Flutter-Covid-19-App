@@ -15,7 +15,7 @@ class Repository {
       headers: {
         'x-rapidapi-host': 'worldometers.p.rapidapi.com',
         'x-rapidapi-key':
-            'YOUR_RAPID_API_KEY', // Go to https://docs.rapidapi.com/docs/keys for more info.
+            'ce5cb7ecbamsh642bf5706559bf5p1fef74jsnec5c6ab9aeaa', // Go to https://docs.rapidapi.com/docs/keys for more info.
       },
     );
 
